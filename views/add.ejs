@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Add screen</h1>
+    <form action="/add-movie" method="POST">
+      <input type="text" name="addName" placeholder="add name" /> <br />
+      <input type="text" name="addDirector" placeholder="add director" /><br />
+      <input type="text" name="addStars" placeholder="add stars" /><br />
+      <textarea
+        name="addAbout"
+        cols="30"
+        rows="10"
+        placeholder="add about"
+      ></textarea
+      ><br />
+      <button type="submit">Add this movie</button>
+    </form>
+  </body>
+</html>

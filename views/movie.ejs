@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1><%= currentMovie.name %></h1>
+    <h2><%= currentMovie.director %></h2>
+    <h3><%= currentMovie.stars %></h3>
+    <p><%= currentMovie.about %></p>
+    <form action="/movie/<%=currentMovie.id%> " method="POST">
+      <button type="submit">delete this movie</button>
+    </form>
+    <form action="/update-movie/<%= currentMovie.id  %> " method="GET">
+      <button type="submit">update this movie</button>
+    </form>
+  </body>
+</html>

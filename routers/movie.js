@@ -7,7 +7,10 @@ router.get('/:id', (req, res, next) => {
   MoviesDB.findMovieById(id)
     .then((movie) => {
       if (movie) {
-        res.status(200).json(movie)
+        res.render('movie', {
+          currentMovie: movie,
+        })
+        // res.status(200).json(movie)
       } else {
         next({
           statusCode: 400,
@@ -23,18 +26,41 @@ router.get('/:id', (req, res, next) => {
         error,
       })
     })
+})
 
-  // const movie = data.find((movie) => movie.id === parseInt(id))
-  // if (movie) {
-  //   res.status(200).json(movie)
-  // } else {
-  //   next({
-  //     statusCode: 400,
-  //     errorMessage: 'boyle  bir film yok',
-  //   })
-  //   // res.status(200).json('bu id de bir film bulunamadi')
-  // }
-  // console.log(id)
+router.post('/:id', (req, res, next) => {
+  const { id } = req.params
+
+  MoviesDB.findMovieById(id)
+    .then((movie) => {
+      MoviesDB.deleteMovie(id)
+        .then((deleted) => {
+          if (deleted) {
+            res.redirect('/')
+            // res.send(204).end()
+          } else {
+            next({
+              statusCode: 500,
+              errorMessage: 'Film silinirken hata olustu.',
+            })
+          }
+        })
+        .catch((error) => {
+          next({
+            statusCode: 500,
+            errorMessage: 'Film silinirken hata olustu 2.',
+            error,
+          })
+        })
+    })
+    .catch((error) => {
+      next({
+        statusCode: 400,
+        errorMessage:
+          'Silimeye calistiginiz film veri tabaninda bulunmamaktadir.',
+        error,
+      })
+    })
 })
 
 module.exports = router

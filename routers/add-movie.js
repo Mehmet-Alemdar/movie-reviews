@@ -1,29 +1,43 @@
 const router = require('express').Router()
 const data = require('../data')
 const MoviesDB = require('../data/db-model')
-
+const alert = require('alert')
 router.get('/', (req, res) => {
-  res.status(200).json(data)
+  res.render('add')
 })
 
-let idd = 4
 router.post('/', (req, res, next) => {
-  let newMovie = req.body
-  MoviesDB.addMovie(newMovie)
-    .then((movie) => {
-      res.status(201).json(movie)
-    })
-    .catch((error) => {
-      next({
-        statusCode: 500,
-        errorMessage: 'Film Eklenemedi',
-        error,
+  let newMovie = {
+    name: req.body.addName,
+    director: req.body.addDirector,
+    stars: req.body.addStars,
+    about: req.body.addAbout,
+  }
+
+  //Checking whether the object's elements are empty.
+  let emptyInfo = true
+  Object.keys(newMovie).map((element) => {
+    if (newMovie[element].trim() === '') {
+      emptyInfo = false
+    }
+  })
+
+  if (emptyInfo === false) {
+    res.redirect('/add-movie')
+    alert('Film Bilgileri Bos Olamaz.')
+  } else {
+    MoviesDB.addMovie(newMovie)
+      .then((movie) => {
+        res.redirect('/')
       })
-    })
-  // movie.id = idd
-  // idd++
-  // data.push(movie)
-  // res.status(200).json(movie)
+      .catch((error) => {
+        next({
+          statusCode: 500,
+          errorMessage: 'Film Eklenemedi',
+          error,
+        })
+      })
+  }
 })
 
 module.exports = router
