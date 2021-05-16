@@ -1,28 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Update screen</h1>
-    <h2><%= updateMovie.name %></h2>
-    <h3><%= updateMovie.director %></h3>
-    <h4><%= updateMovie.stars %></h4>
-    <p><%= updateMovie.about %></p>
-    <hr />
-    <form action="/update-movie/<%= updateMovie.id  %> " method="POST">
-      <input type="text" name="updatedName" placeholder="movie name" /><br />
-      <input
-        type="text"
-        name="updatedDirector"
-        placeholder="movie director"
-      /><br />
-      <input type="text" name="updatedStars" placeholder="movie stars" /><br />
-      <textarea name="updatedAbout" id="" cols="30" rows="10"></textarea> <br />
-      <button type="submit">Updated movie</button>
-    </form>
-  </body>
-</html>
+<%- include("partials/header") -%>
+
+<div class="add-update-container">
+  <h3 class="updated-name">Update <%= updateMovie.name %></h3>
+  <form
+    class="add-update-form"
+    action="/update-movie/<%= updateMovie.id  %> "
+    method="POST"
+  >
+    <input
+      type="text"
+      name="updatedName"
+      placeholder="movie name"
+      value="<%= updateMovie.name %>"
+    /><br />
+    <input
+      type="text"
+      name="updatedDirector"
+      placeholder="movie director"
+      value="<%= updateMovie.director %>"
+    /><br />
+    <input
+      type="text"
+      name="updatedStars"
+      placeholder="movie stars"
+      value="<%= updateMovie.stars %>"
+    /><br />
+    <textarea name="updatedAbout" id="" cols="80" rows="15">
+<%= updateMovie.about %></textarea
+    >
+    <br />
+    <button class="movie-button" type="submit">Updated movie</button>
+  </form>
+</div>
+
+<%- include("partials/footer") -%>

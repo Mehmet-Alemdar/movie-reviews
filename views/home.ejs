@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-  </head>
-  <body>
-    <h1>home screen</h1>
+<%- include("partials/header") -%>
+<div class="movie-item">
     <% for(i in newMovieItem){%>
-    <div>
-      <h3>
-        <a href="/movie/<%= newMovieItem[i].id  %> "
-          ><%= newMovieItem[i].name %></a
-        >
-      </h3>
-      <p><%= newMovieItem[i].about %></p>
-      <%}%>
-    </div>
-  </body>
-</html>
+      <div class="movie-info">
+        <h2 class="name">
+      <a class="name" href="/movie/<%= newMovieItem[i].id  %> "><%= newMovieItem[i].name.substring(0,50) %></a>
+    </h2 class="name">
+    <p  class="about" ><%= newMovieItem[i].about.substring(0,250) %>...</p>
+      </div>
+  <%}%>
+  </div>
+
+<%- include("partials/footer") -%>

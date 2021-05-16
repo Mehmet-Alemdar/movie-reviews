@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const data = require('../data')
 const MoviesDB = require('../data/db-model')
 const alert = require('alert')
 router.get('/', (req, res) => {
@@ -24,7 +23,7 @@ router.post('/', (req, res, next) => {
 
   if (emptyInfo === false) {
     res.redirect('/add-movie')
-    alert('Film Bilgileri Bos Olamaz.')
+    alert('movie information cannot be empty.')
   } else {
     MoviesDB.addMovie(newMovie)
       .then((movie) => {
@@ -33,8 +32,8 @@ router.post('/', (req, res, next) => {
       .catch((error) => {
         next({
           statusCode: 500,
-          errorMessage: 'Film Eklenemedi',
-          error,
+          errorMessage: 'The movie could not be added.',
+          error: error,
         })
       })
   }

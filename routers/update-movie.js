@@ -3,17 +3,17 @@ const MoviesDB = require('../data/db-model')
 const alert = require('alert')
 router.get('/:id', (req, res, next) => {
   const { id } = req.params
+
   MoviesDB.findMovieById(id)
     .then((movie) => {
       if (movie) {
         res.render('update', {
           updateMovie: movie,
         })
-        // res.status(200).json(movie)
       } else {
         next({
           statusCode: 400,
-          errorMessage: 'Film yok',
+          errorMessage: 'the movie could not be found.',
           error,
         })
       }
@@ -21,7 +21,7 @@ router.get('/:id', (req, res, next) => {
     .catch((error) => {
       next({
         statusCode: 500,
-        errorMessage: 'Bu id de film bulunamadi',
+        errorMessage: 'No movie was found on this id.',
         error,
       })
     })
@@ -46,7 +46,7 @@ router.post('/:id', (req, res, next) => {
 
   if (emptyInfo === false) {
     res.redirect('/update-movie/' + id)
-    alert('Film bilgileri bos olamaz.')
+    alert('movie information cannot be empty.')
   } else {
     MoviesDB.updateMovie(updatedMovie, id)
       .then((updated) => {
@@ -55,7 +55,7 @@ router.post('/:id', (req, res, next) => {
       .catch((error) => {
         next({
           statsCode: 500,
-          errorMessage: 'Guncellenirken bir sorun olustu',
+          errorMessage: 'There was a problem updating the movie.',
           error,
         })
       })

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const data = require('../data')
+
 const MoviesDB = require('../data/db-model')
 
 router.get('/:id', (req, res, next) => {
@@ -10,11 +10,10 @@ router.get('/:id', (req, res, next) => {
         res.render('movie', {
           currentMovie: movie,
         })
-        // res.status(200).json(movie)
       } else {
         next({
           statusCode: 400,
-          errorMessage: 'Film yok',
+          errorMessage: 'the movie could not be found.',
           error,
         })
       }
@@ -22,7 +21,7 @@ router.get('/:id', (req, res, next) => {
     .catch((error) => {
       next({
         statusCode: 500,
-        errorMessage: 'Bu id de film bulunamadi',
+        errorMessage: 'No movie was found on this id.',
         error,
       })
     })
@@ -37,18 +36,17 @@ router.post('/:id', (req, res, next) => {
         .then((deleted) => {
           if (deleted) {
             res.redirect('/')
-            // res.send(204).end()
           } else {
             next({
               statusCode: 500,
-              errorMessage: 'Film silinirken hata olustu.',
+              errorMessage: 'An error occurred while deleting the movie.',
             })
           }
         })
         .catch((error) => {
           next({
             statusCode: 500,
-            errorMessage: 'Film silinirken hata olustu 2.',
+            errorMessage: 'An error occurred while deleting the movie.',
             error,
           })
         })
@@ -57,7 +55,7 @@ router.post('/:id', (req, res, next) => {
       next({
         statusCode: 400,
         errorMessage:
-          'Silimeye calistiginiz film veri tabaninda bulunmamaktadir.',
+          'The movie you are trying to delete does not exist in the database.',
         error,
       })
     })
