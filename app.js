@@ -18,7 +18,7 @@ app.use('/movie', movieRouter)
 app.use('/add-movie', addMovieRouter)
 app.use('/update-movie', updateMovieRouter)
 
-app.get('/', (req, res, next) => {
+app.get('/movie-reviews/', (req, res, next) => {
   MoviesDB.findMovie()
     .then((movies) => {
       res.render('home', {
